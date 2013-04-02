@@ -1,8 +1,16 @@
 var port = 8080;
-
-var app = require('express')(), 
-    server = require('http').createServer(app), 
-    io = require('socket.io').listen(server);
+ 
+var app     = require('express')(), 
+    server  = require('http').createServer(app), 
+    io      = require('socket.io').listen(server),
+    fs      = require('fs'),
+    spawn   = require('child_process').spawn;
+    
+var filename = process.argv[2];
+if (!filename) {
+    console.log("Usage: node <server.js> <filename>");
+    return false;
+}
 
 server.listen(port);
 
@@ -11,8 +19,12 @@ app.get('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+  console.log('Client connected');
+  var tail = spawn("tail", ["-f", filename]);
+ 
+  tail.stdout.on("data", function (data) {
+    console.log('file changed');
+    socket.emit('tail', data.toString('utf-8'));
   });
+  
 });

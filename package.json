@@ -4,7 +4,6 @@
     "author": "Fabio Fabbrucci <fabio.fabbrucci@gmail.com>",
     "dependencies" : {
        "express":  "*",
-       "jade": "",
        "socket.io": ""
     },
     "engines": {
