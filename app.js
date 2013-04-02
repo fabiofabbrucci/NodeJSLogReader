@@ -1,17 +1,18 @@
-var express = require('express');
-var app = express();
 var port = 8080;
 
-app.configure(function(){
-   app.set('view engine', 'jade');
-   app.set('view options', {layout: true});
-   app.set('views', __dirname + '/views');
-   //app.use(express.static(__dirname + '/public'))
+var app = require('express')(), 
+    server = require('http').createServer(app), 
+    io = require('socket.io').listen(server);
+
+server.listen(port);
+
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '/index.html');
 });
 
-app.get('/', function(req,res){
-    res.render('index');
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
 });
-
-app.listen(port);
-console.log('Listening on port ' + port);

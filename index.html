@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <style>
+    body
+      { color: #1a2c37;
+        font-family: 'Helvetica', sans-serif; font-size: 86%;
+        padding: 2em; }
+    #info
+      { font-size: 120%;
+        font-weight: bold; }
+    #tail
+      { border: 1px solid #ccc;
+        height: 300px;
+        padding: 0.5em;
+        overflow: hidden;
+        position: relative;
+        overflow-y: scroll; }
+  </style>
+
+</head>
+<body>
+  <pre id="info"></pre>
+  <pre id="tail"></pre>
+
+  <script>
+
+    var socket = io.connect('http://localhost:8080/');
+    socket.on('connect', function () {
+        socket.send('hi');
+
+        socket.on('news', function (msg) {
+          console.log(msg);
+        });
+    });
+  </script>
+
+</body>
+</html>
