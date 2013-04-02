@@ -3,7 +3,8 @@
     "version": "0.0.1",
     "author": "Fabio Fabbrucci <fabio.fabbrucci@gmail.com>",
     "dependencies" : {
-       "express":  "*"
+       "express":  "*",
+       "jade": ""
     },
     "engines": {
         "node": ">= 0.6.0"
