@@ -12,3 +12,6 @@ logs
 results
 
 npm-debug.log
+
+nbproject/
+node_modules/
