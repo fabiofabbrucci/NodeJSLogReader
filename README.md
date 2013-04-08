@@ -19,3 +19,5 @@ Edit index.html with files you want to monitor, then
   > node app.js 
 
 Now open your browser on http://localhost:8080 and try to change files you are watching
+
+![Preview](fabiofabbrucci.github.com/NodeJSLogReader/public/images/preview.png)
