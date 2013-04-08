@@ -20,7 +20,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('log_file', function (filename) {
         socket.emit('clear');
         
-        var tail = spawn("tail", ["-f", filename]);
+        var tail = spawn("/usr/bin/tail", ["-f", filename] );
         tail.stdout.on("data", function (data) {
             console.log('file changed');
             socket.emit('tail', data.toString('utf-8'));

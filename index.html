@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>NodeJsLogReader</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
+    <head>
+        <title>NodeJsLogReader</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 
-  <style>
-    body
-      { color: #1a2c37;
-        font-family: 'Helvetica', sans-serif; font-size: 86%;
-        padding: 2em; }
-    #info
-      { font-size: 120%;
-        font-weight: bold; }
-    #tail
-      { border: 1px solid #ccc;
-        height: 300px;
-        padding: 0.5em;
-        overflow: hidden;
-        position: relative;
-        overflow-y: scroll; }
-  </style>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
 
-</head>
-<body>
-    <select name="log_file" id="log_file">
-        <option></option>
-        <option value="/var/log/apache2/access_log">Access Apache</option>
-    </select>
-    <pre id="info"></pre>
-    <pre id="tail"></pre>
+        <style>
+            body{
+                padding-top: 50px;
+            }
+            #tail{ 
+                border: 1px solid #ccc;
+                height: 300px;
+                padding: 0.5em;
+                oerflow: hidden;
+                position: relative;
+                oerflow-y: scroll; 
+            }
+        </style>
 
-  <script>
+    </head>
 
-    var socket = io.connect('http://localhost:8080/');
-    
-    socket.on('clear', function () {
-      $('#tail').html('');
-    });
-    
-    socket.on('tail', function (msg) {
-      $('#tail').prepend(msg);
-    });
-    
-    $('#log_file').change(function(){
-        socket.emit('log_file', $('#log_file').val());
-    });
-  </script>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="brand" href="#">LogReader</a>
+                    <div class="pull-right">
+                        <select name="log_file" id="log_file">
+                            <option></option>
+                            <option value="/var/log/apache2/access_log">Access Apache</option>
+                            <option value="/var/log/apache2/error_log">Error Apache</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</body>
+        <div class="container-fluid">
+            <pre id="tail"></pre>
+        </div>
+        
+        <script>
+            var socket = io.connect('http://localhost:8080/');
+
+            socket.on('clear', function() {
+                $('#tail').html('');
+            });
+
+            socket.on('tail', function(msg) {
+                $('#tail').append(msg);
+            });
+
+            $('#log_file').change(function() {
+                socket.emit('log_file', $('#log_file').val());
+            });
+        </script>
+    </body>
 </html>
