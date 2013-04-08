@@ -25,14 +25,27 @@
 
 </head>
 <body>
-  <pre id="info"></pre>
-  <pre id="tail"></pre>
+    <select name="log_file" id="log_file">
+        <option></option>
+        <option value="/var/log/apache2/access_log">Access Apache</option>
+    </select>
+    <pre id="info"></pre>
+    <pre id="tail"></pre>
 
   <script>
 
     var socket = io.connect('http://localhost:8080/');
+    
+    socket.on('clear', function () {
+      $('#tail').html('');
+    });
+    
     socket.on('tail', function (msg) {
       $('#tail').prepend(msg);
+    });
+    
+    $('#log_file').change(function(){
+        socket.emit('log_file', $('#log_file').val());
     });
   </script>
 

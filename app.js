@@ -8,12 +8,6 @@ var app = require('express')(),
     fs = require('fs'),
     spawn = require('child_process').spawn;
 
-var filename = process.argv[2];
-if (!filename) {
-    console.log("Usage: node <server.js> <filename>");
-    process.exit(1);
-}
-
 server.listen(port);
 
 app.get('/', function (req, res) {
@@ -22,10 +16,14 @@ app.get('/', function (req, res) {
 
 io.sockets.on('connection', function (socket) {
     console.log('Client connected');
-    var tail = spawn("tail", ["-f", filename]);
 
-    tail.stdout.on("data", function (data) {
-        console.log('file changed');
-        socket.emit('tail', data.toString('utf-8'));
+    socket.on('log_file', function (filename) {
+        socket.emit('clear');
+        
+        var tail = spawn("tail", ["-f", filename]);
+        tail.stdout.on("data", function (data) {
+            console.log('file changed');
+            socket.emit('tail', data.toString('utf-8'));
+        });
     });
 });
