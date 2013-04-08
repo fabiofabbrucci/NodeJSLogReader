@@ -20,4 +20,4 @@ Edit index.html with files you want to monitor, then
 
 Now open your browser on http://localhost:8080 and try to change files you are watching
 
-![Preview](../blob/master/public/images/preview.png)
+![Preview](public/images/preview.png)
