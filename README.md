@@ -14,7 +14,8 @@ After this we can set up the project
 
 Using
 ---------------
+Edit index.html with files you want to monitor, then 
 
-  > node app.js file_to_log
+  > node app.js 
 
-Now open your browser on http://localhost:8080 and try to change ''file_to_log''
+Now open your browser on http://localhost:8080 and try to change files you are watching

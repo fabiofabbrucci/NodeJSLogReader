@@ -11,14 +11,18 @@
         <style>
             body{
                 padding-top: 50px;
+                height: 100%;
             }
             #tail{ 
                 border: 1px solid #ccc;
-                height: 300px;
+                min-height: 300px;
+                width: 98%;
+                margin: 0 auto;
                 padding: 0.5em;
-                oerflow: hidden;
-                position: relative;
-                oerflow-y: scroll; 
+                display: block;
+            }
+            #log_file{
+                padding-top: 5px;
             }
         </style>
 
@@ -41,7 +45,9 @@
         </div>
 
         <div class="container-fluid">
-            <pre id="tail"></pre>
+            <textarea id="tail" readonly="true"></textarea>
+            <hr />
+            By <a href="http://about.me/fabbrucci">@Fabbrucci</a> - Fork this project on <a href="https://github.com/fabiofabbrucci/NodeJSLogReader">Github</a>
         </div>
         
         <script>
